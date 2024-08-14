@@ -13,7 +13,7 @@ const criarPalestranteToken = async (palestrante, request, response) =>{
 
     //Retornar/resposta o token
     response.status(200).json({
-        message: "Você está logado!",
+        message: "O palestrante está cadastrado!",
         token: token,
         palestranteId : palestrante.palestrante_id
     })
