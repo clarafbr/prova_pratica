@@ -53,6 +53,7 @@ export const postParticipante = (request, response) => {
 });
 };
 
+//CRIAR UMA INSCRIÇÃO
 export const postInscricao = (request, response) => {
     const {nome, email} = request.body
 
@@ -80,4 +81,22 @@ export const postInscricao = (request, response) => {
 
         return(201).json({message: "Inscrição realizada com sucesso!"})
     })
-}
+};
+
+//LISTAR OS EVETOS QUE O PARTICIPANTE POR ID E O EVENTO QUE ESTÁ PARTICIPANDO
+export const getmeusEventos = (request, response) => {
+    const {id} = request.params
+    const sql = /*sql*/ `SELECT * FROM participantes WHERE participante_id = "${id}"`
+    conn.query(sql, (err, data) => {
+        if(err){
+            console.error(err)
+            response.status(500).json({message: "Erro ao buscar participante"})
+            return
+        }
+        if(data.length === 0){
+            response.status(404).json({message: "Participante não encontrado"})
+        }
+        const participante = data[0]
+        return response.status(200).json(participante)
+    })
+};
